@@ -1,1 +1,94 @@
-<p>carros works!</p>
+<div class="row mt-4">
+  <div class="col-8 m-auto">
+
+    <form [formGroup]="formGroupCarros">
+      <div class="mb-3">
+        <div class="display-6 text-center">
+          Cadastro de Clientes
+        </div>
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" formControlName="titulo" class="form-control" id="name" placeholder="Digite o nome do carro">
+      </div>
+
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição:</label>
+        <input type="text" formControlName="descricao" class="form-control" id="descricao" placeholder="Digite a descrição do carro">
+      </div>
+
+      <div class="mb-3">
+        <label for="preco" class="form-label">Preço:</label>
+        <input type="number" formControlName="preco" class="form-control" id="preco" placeholder="Digite o valor do carro">
+      </div>
+
+      <div class="mb-4">
+        <label for="validade" class="form-label">Data de Validade:</label>
+        <input type="text" formControlName="dataValidade" class="form-control" id="dataValidade" placeholder="Digite a data de validade do carro">
+      </div>
+
+      <div class="mb-4">
+        <label for="imagem" class="form-label">Imagem:</label>
+        <input type="text" formControlName="img" class="form-control" id="dataValidade" placeholder="Digite o link da imagem">
+      </div>
+
+      <label class="mb-2">Selecione o status do anúncio: </label>
+      <div class="form-check">
+        <input class="form-check-input" formControlName="status" value="Ativo" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
+        <label class="form-check-label" for="ativo">
+          Ativo
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" formControlName="status" value="Inativo" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
+        <label class="form-check-label" for="inativo">
+          Inativo
+        </label>
+      </div>
+
+      <div class="mb-3 d-flex justify-content-center">
+        <div class="form-check mt-1">
+          <input class="form-check-input" type="checkbox" id="checkbox">
+          <label class="form-check-label me-4" for="flexCheckDefault">
+            Concordo com os termos de uso
+          </label>
+        </div>
+        <button class="btn btn-primary me-1" (click)="save()">Salvar</button>
+        <button class="btn btn-danger" (click)="clean()">Limpar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-9 m-auto">
+
+    <table id="table" class="table table-bordered border-dark">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Preço</th>
+          <th scope="col">Data de Validade</th>
+          <th scope="col">Imagem</th>
+          <th scope="col">Status</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let carros of carros">
+          <th scope="row">{{carros.id}}</th>
+          <td>{{carros.titulo}}</td>
+          <td>{{carros.descricao}}</td>
+          <td>{{carros.preco}}</td>
+          <td>{{carros.dataValidade}}</td>
+          <td>{{loadImg(carros)}}</td>
+          <td>{{carros.status}}</td>
+          <td>
+            <button class="btn btn-success me-1" (click)="edit(carros)">Editar</button>
+            <button class="btn btn-danger" (click)="delete(carros)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
