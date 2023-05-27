@@ -1,1 +1,17 @@
-<p>home works!</p>
+<div class="d-flex gap-5 mt-2">
+    <div *ngFor="let carros of carros">
+        <div *ngIf="status == true" style="position: relative;">
+            <div class="card m-auto" style="width: 18rem; height: 27rem;">
+                <img src="{{carros.img}}" class="card-img-top" alt="{{carros.titulo}}" style="height: 214px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{carros.titulo}}</h5>
+                    <h6>{{carros.preco | currency:'BRL':'symbol':'1.2-2'}}</h6>
+                    <p class="card-text mb-3">{{carros.descricao}}</p>
+                </div>
+                <div style="position: absolute; bottom: 0;">
+                    <small style="font-style: italic;">Expira em {{carros.dataValidade | date:'dd/MM/yyyy'}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

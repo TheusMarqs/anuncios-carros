@@ -13,15 +13,16 @@ export class CarrosComponent implements OnInit {
   carros: Carros[] = [];
   isEditing: boolean = false;
   formGroupCarros: FormGroup;
+  submitted: boolean = false;
 
   constructor(private carrosService: CarrosService, private formBuilder: FormBuilder) {
     this.formGroupCarros = this.formBuilder.group({
       id: [''],
-      titulo: ['',[Validators.required]],
-      descricao: [''],
-      preco: [''],
-      dataValidade: [''],
-      img: [''],
+      titulo: ['', [Validators.required]],
+      preco: ['', [Validators.required]],
+      descricao: ['', [Validators.required]],
+      dataValidade: ['', [Validators.required]],
+      img: ['', [Validators.required]],
       status: ['']
     });
   }
@@ -37,33 +38,30 @@ export class CarrosComponent implements OnInit {
   }
 
   save() {
-    let checkbox = document.getElementById('checkbox') as HTMLInputElement;
+    this.submitted = true;
 
-    if (this.isEditing) {
-      this.carrosService.update(this.formGroupCarros.value).subscribe({
-        next: () => {
-          this.loadCarros()
-          this.formGroupCarros.reset();
-          this.isEditing = false;
-        }
-      })
-    }
-
-    else {
-      if (checkbox.checked) {
+    if (this.formGroupCarros.valid) {
+      if (this.isEditing) {
+        this.carrosService.update(this.formGroupCarros.value).subscribe({
+          next: () => {
+            this.loadCarros()
+            this.formGroupCarros.reset();
+            this.isEditing = false;
+            this.submitted = false;
+          }
+        })
+      }
+  
+      else {
         this.carrosService.save(this.formGroupCarros.value).subscribe({
           next: data => {
             this.carros.push(data);
             this.formGroupCarros.reset();
+            this.submitted = false;
           }
         })
       }
-
-      else {
-        alert ('Para prosseguir com o cadastro, aceite os termos de uso');
-      }
     }
-    checkbox.checked = false;
   }
 
   edit(carros: Carros) {
@@ -79,10 +77,25 @@ export class CarrosComponent implements OnInit {
 
   clean() {
     this.formGroupCarros.reset();
+    this.submitted = false;
   }
 
-  loadImg(carros: Carros) {
-    this.carrosService.getImg(carros);
+  get title(): any {
+    return this.formGroupCarros.get("titulo");
   }
+  get price(): any {
+    return this.formGroupCarros.get("preco");
+  }
+  get description(): any {
+    return this.formGroupCarros.get("descricao");
+  }
+  get data(): any {
+    return this.formGroupCarros.get("dataValidade");
+  }
+  get img(): any {
+    return this.formGroupCarros.get("img");
+  }
+
+  
 
 }

@@ -25,8 +25,4 @@ export class CarrosService {
   delete(carros: Carros): Observable<void> {
     return this.http.delete<void>(`${this.url}/${carros.id}`);
   }
-
-  getImg(carros: Carros): Observable<Carros> {
-    return this.http.get<Carros>(carros.img);
-  }
 }

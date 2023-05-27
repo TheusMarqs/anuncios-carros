@@ -4,53 +4,62 @@
     <form [formGroup]="formGroupCarros">
       <div class="mb-3">
         <div class="display-6 text-center">
-          Cadastro de Clientes
+          Carros
         </div>
         <label for="name" class="form-label">Nome:</label>
         <input type="text" formControlName="titulo" class="form-control" id="name" placeholder="Digite o nome do carro">
+        <div *ngIf="submitted && title.invalid">
+          <small class="text-danger">Título Inválido!</small>
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="descricao" class="form-label">Descrição:</label>
         <input type="text" formControlName="descricao" class="form-control" id="descricao" placeholder="Digite a descrição do carro">
+        <div *ngIf="submitted && description.invalid">
+          <small class="text-danger">Descrição Inválida!</small>
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="preco" class="form-label">Preço:</label>
         <input type="number" formControlName="preco" class="form-control" id="preco" placeholder="Digite o valor do carro">
+        <div *ngIf="submitted && price.invalid">
+          <small class="text-danger">Preço Inválido!</small>
+        </div>
       </div>
 
       <div class="mb-4">
         <label for="validade" class="form-label">Data de Validade:</label>
-        <input type="text" formControlName="dataValidade" class="form-control" id="dataValidade" placeholder="Digite a data de validade do carro">
+        <input type="date" formControlName="dataValidade" class="form-control" id="dataValidade" placeholder="Digite a data de validade do carro">
+        <div *ngIf="submitted && data.invalid">
+          <small class="text-danger">Data Inválida!</small>
+        </div>
       </div>
 
       <div class="mb-4">
         <label for="imagem" class="form-label">Imagem:</label>
-        <input type="text" formControlName="img" class="form-control" id="dataValidade" placeholder="Digite o link da imagem">
+        <input type="text" formControlName="img" class="form-control" id="imagem" placeholder="Digite o link da imagem">
+        <div *ngIf="submitted && img.invalid">
+          <small class="text-danger">Imagem Inválida!</small>
+        </div>
       </div>
 
       <label class="mb-2">Selecione o status do anúncio: </label>
       <div class="form-check">
-        <input class="form-check-input" formControlName="status" value="Ativo" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
+        <input class="form-check-input" formControlName="status" value="true" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
         <label class="form-check-label" for="ativo">
           Ativo
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" formControlName="status" value="Inativo" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
+        <input class="form-check-input" formControlName="status" value="false" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
         <label class="form-check-label" for="inativo">
           Inativo
         </label>
       </div>
 
       <div class="mb-3 d-flex justify-content-center">
-        <div class="form-check mt-1">
-          <input class="form-check-input" type="checkbox" id="checkbox">
-          <label class="form-check-label me-4" for="flexCheckDefault">
-            Concordo com os termos de uso
-          </label>
-        </div>
         <button class="btn btn-primary me-1" (click)="save()">Salvar</button>
         <button class="btn btn-danger" (click)="clean()">Limpar</button>
       </div>
@@ -59,7 +68,7 @@
 </div>
 
 <div class="row">
-  <div class="col-9 m-auto">
+  <div class="col-11 m-auto">
 
     <table id="table" class="table table-bordered border-dark">
       <thead class="table-dark">
@@ -79,9 +88,9 @@
           <th scope="row">{{carros.id}}</th>
           <td>{{carros.titulo}}</td>
           <td>{{carros.descricao}}</td>
-          <td>{{carros.preco}}</td>
-          <td>{{carros.dataValidade}}</td>
-          <td>{{loadImg(carros)}}</td>
+          <td>{{carros.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
+          <td>{{carros.dataValidade | date: 'dd/MM/yyyy' }}</td>
+          <td><img src="{{carros.img}}" width="200px"></td>
           <td>{{carros.status}}</td>
           <td>
             <button class="btn btn-success me-1" (click)="edit(carros)">Editar</button>
