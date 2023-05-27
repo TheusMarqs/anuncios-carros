@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Carros } from '../carro';
 import { CarrosService } from '../carros.service';
@@ -6,7 +6,7 @@ import { CarrosService } from '../carros.service';
 @Component({
   selector: 'app-carros',
   templateUrl: './carros.component.html',
-  styleUrls: ['./carros.component.css']
+  styleUrls: ['./carros.component.css'],
 })
 
 export class CarrosComponent implements OnInit {
@@ -23,7 +23,7 @@ export class CarrosComponent implements OnInit {
       descricao: ['', [Validators.required]],
       dataValidade: ['', [Validators.required]],
       img: ['', [Validators.required]],
-      status: ['']
+      status: [false]
     });
   }
 
@@ -95,7 +95,5 @@ export class CarrosComponent implements OnInit {
   get img(): any {
     return this.formGroupCarros.get("img");
   }
-
-  
 
 }
