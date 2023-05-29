@@ -83,10 +83,10 @@
           <td>{{carros.descricao}}</td>
           <td>{{carros.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
           <td>{{carros.dataValidade | date: 'dd/MM/yyyy' }}</td>
-          <td><img src="{{carros.img}}" width="200px"></td>
+          <td><img class="d-flex m-auto" src="{{carros.img}}" width="200px"></td>
           <td>{{carros.status ? 'Ativo' : 'Desativado'}}</td>
           <td>
-            <button class="btn btn-success me-1" (click)="edit(carros)">Editar</button>
+            <button class="btn btn-success mb-1" (click)="edit(carros)">Editar</button>
             <button class="btn btn-danger" (click)="delete(carros)">Excluir</button>
           </td>
         </tr>
